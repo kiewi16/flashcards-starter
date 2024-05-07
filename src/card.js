@@ -8,7 +8,7 @@ function createCard(id, question, answers, correctAnswer) {
         correctAnswer: correctAnswer,
     }
 return card
-}
+};
 
 function evaluateGuess(guess, correctAnswer) {
   if(guess === correctAnswer) {
@@ -17,7 +17,11 @@ function evaluateGuess(guess, correctAnswer) {
 }; 
 
 function createDeck(cards) {
-    return cards
-}
+    return cards;
+};
 
-module.exports = { createCard, evaluateGuess, createDeck }; 
+function countCards(deck) {
+    return deck.length; 
+};
+
+module.exports = { createCard, evaluateGuess, createDeck, countCards }; 

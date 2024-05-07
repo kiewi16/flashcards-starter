@@ -1,14 +1,13 @@
 const chai = require('chai');
 const expect = chai.expect;
-
-const { createCard } = require('../src/card');
+const { createCard, evaluateGuess, createDeck } = require('../src/card');
 
 describe('card', function() {
-  it.skip('should be a function', function() {
+  it('should be a function', function() {
     expect(createCard).to.be.a('function');
   });
 
-  it.skip('should create a card and its properties', function() {
+  it('should create a card and its properties', function() {
     const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
     
     expect(card.id).to.equal(1);
@@ -17,3 +16,36 @@ describe('card', function() {
     expect(card.correctAnswer).to.equal('object');
   });  
 });
+
+describe('guess', function() {
+  it('should be a function', function() {
+    expect(evaluateGuess).to.be.a('function');
+  });
+
+  it('should return "Correct!" if player enters a correct answer', function() {
+    const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object'); 
+    const correctAnswer = card.correctAnswer; 
+    const guess = 'object'; 
+    const feedback = evaluateGuess(guess, correctAnswer);
+    
+    expect(feedback).to.equal("Correct!")
+  });
+
+  it('should return "Incorrect!" if player enters an incorrect answer', function() {
+    const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object'); 
+    const correctAnswer = card.correctAnswer; 
+    const guess = 'potato'; 
+    const feedback = evaluateGuess(guess, correctAnswer);
+    
+    expect(feedback).to.equal("Incorrect!")
+  });
+
+});
+
+describe('deck', function () {
+  it('should be a function', function() {
+    expect(createDeck).to.be.a('function');
+  });
+})
+
+module.exports = { createCard, evaluateGuess, createDeck };

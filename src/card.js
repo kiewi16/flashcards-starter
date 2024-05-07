@@ -28,11 +28,21 @@ function countCards(deck) {
 function createRound(deck) {
     const round = {
         deck: deck, 
-        currentCard: 1,
+        currentCard: deck[0],
         turns: 0,
         incorrectGuesses: [], 
     }
     return round 
 }
 
-module.exports = { createCard, evaluateGuess, createDeck, countCards, createRound }; 
+function takeTurn(guess, round) {
+    if(guess !== round.currentCard.correctAnswer) {
+        round.incorrectGuesses.push(round.currentCard.id)
+        return "Correct!"
+    } else 
+    round.turns += 1
+    round.currentCard = round.deck[round.turns]
+    return round
+}
+
+module.exports = { createCard, evaluateGuess, createDeck, countCards, createRound, takeTurn }; 

@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { createCard, evaluateGuess, createDeck, countCards } = require('../src/card');
+const { createCard, evaluateGuess, createDeck, countCards, createRound } = require('../src/card');
 
 describe('card', function() {
   it('should be a function', function() {
@@ -24,18 +24,16 @@ describe('guess', function() {
 
   it('should return "Correct!" if player enters a correct guess', function() {
     const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object'); 
-    const correctAnswer = card.correctAnswer; 
     const guess = 'object'; 
-    const feedback = evaluateGuess(guess, correctAnswer);
+    const feedback = evaluateGuess(guess, card);
     
     expect(feedback).to.equal("Correct!")
   });
 
   it('should return "Incorrect!" if player enters an incorrect guess', function() {
     const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object'); 
-    const correctAnswer = card.correctAnswer; 
     const guess = 'potato'; 
-    const feedback = evaluateGuess(guess, correctAnswer);
+    const feedback = evaluateGuess(guess, card);
     
     expect(feedback).to.equal("Incorrect!")
   });
@@ -81,19 +79,24 @@ describe('deck', function () {
     const deck = createDeck(cards);
     const numOfCards = countCards(deck); 
 
-    expect(numOfCards).to.equal(3)
+    expect(numOfCards).to.equal(3);
   });
 });
 
 describe('round', function () {
-  it.skip('should be a function', function() {
+  it('should be a function', function() {
     expect(createRound).to.be.a('function');
   });
 
-  it.skip('should create a round and its properties', function() {
-    const round = createRound(deck, currentCard, turns, incorrectGuesses);
+  it('should create a round and its properties', function() {
+    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+    const cards = [card1, card2, card3];
+    const deck = createDeck(cards);
+    const round = createRound(deck);
 
-    expect(round.deck).to.equal ///????
+    expect(round.deck).to.deep.equal(deck);
     expect(round.currentCard).to.equal(1);
     expect(round.turns).to.equal(0); 
     expect(round.incorrectGuesses).to.deep.equal([]);
@@ -104,12 +107,27 @@ describe('take turn', function () {
   it.skip('should be a function', function() {
     expect(takeTurn).to.be.a('function');
   });
-      
-  it.skip('should increase the turns count regardless if the player makes an incorrect or correct guess');
-  it.skip('should update the current card with the next card'); 
+
+  it.skip('should increase the turns count regardless if the player makes an incorrect or correct guess', function() {
+    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+    const cards = [card1, card2, card3];
+    const deck = createDeck(cards);
+    const round = createRound(deck);
+    const guess = 'potato'
+    const turn = takeTurn(guess, round)
+
+    expect(round.turns).to.equal(1)
+  });
+
+
+  it.skip('should update the current card with the next card', function() {
+
+  }); 
   it.skip('should add guess via the card/s id to incorrectGuesses if the player makes an incorrect guess');
   it.skip('should not add guess to incorrectGuesses if the player makes a correct guess');
-  it.skip('should return "Inorrect!" if player enters an incorrect guess');
+  it.skip('should return "Incorrect!" if player enters an incorrect guess');
   it.skip('should return "Correct!" if player enters a correct guess'); 
 });
 
@@ -127,4 +145,4 @@ describe('end the round', function () {
   it.skip('should return "**Round over!** You answered % of questions correctly!') // need to update %
 }); 
 
-module.exports = { createCard, evaluateGuess, createDeck, countCards };
+module.exports = { createCard, evaluateGuess, createDeck, countCards, createRound };

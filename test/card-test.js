@@ -55,20 +55,20 @@ describe('deck', function () {
 
     expect(deck).to.have.lengthOf(3); 
     
-    expect(deck[0]).to.have.property('id', 1)
-    expect(deck[0]).to.have.property('question', 'What allows you to define a set of related information using key-value pairs?')
-    expect(deck[0]).to.have.property('answers').that.deep.equals(['object', 'array', 'function'])
-    expect(deck[0]).to.have.property('correctAnswer', "object")
+    expect(deck[0]).to.have.property('id', 1);
+    expect(deck[0]).to.have.property('question', 'What allows you to define a set of related information using key-value pairs?');
+    expect(deck[0]).to.have.property('answers').that.deep.equals(['object', 'array', 'function']);
+    expect(deck[0]).to.have.property('correctAnswer', "object");
 
-    expect(deck[1]).to.have.property('id', 2)
-    expect(deck[1]).to.have.property('question', "What is a comma-separated list of related values?")
-    expect(deck[1]).to.have.property('answers').that.deep.equals(["array", "object", "function"])
-    expect(deck[1]).to.have.property('correctAnswer', "array")
+    expect(deck[1]).to.have.property('id', 2);
+    expect(deck[1]).to.have.property('question', "What is a comma-separated list of related values?");
+    expect(deck[1]).to.have.property('answers').that.deep.equals(["array", "object", "function"]);
+    expect(deck[1]).to.have.property('correctAnswer', "array");
     
-    expect(deck[2]).to.have.property('id', 3)
-    expect(deck[2]).to.have.property('question',"What type of prototype method di;rectly modifies the existing array?")
-    expect(deck[2]).to.have.property('answers').that.deep.equals(["mutator method", "accessor method", "iteration method"])
-    expect(deck[2]).to.have.property('correctAnswer', "mutator method")
+    expect(deck[2]).to.have.property('id', 3);
+    expect(deck[2]).to.have.property('question',"What type of prototype method di;rectly modifies the existing array?");
+    expect(deck[2]).to.have.property('answers').that.deep.equals(["mutator method", "accessor method", "iteration method"]);
+    expect(deck[2]).to.have.property('correctAnswer', "mutator method");
     
   });
 })

@@ -16,8 +16,8 @@ function evaluateGuess(guess, correctAnswer) {
   } else {return "Incorrect!"}
 }; 
 
-function createDeck() {
-    
+function createDeck(cards) {
+    return cards
 }
 
 module.exports = { createCard, evaluateGuess, createDeck }; 

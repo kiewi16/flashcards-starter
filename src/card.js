@@ -1,7 +1,7 @@
 // const { evaluateGuess } = require("../test/card-test");
 
 function createCard(id, question, answers, correctAnswer) {
-    let card = {
+    const card = {
         id: id,
         question: question,
         answers: answers,
@@ -10,15 +10,14 @@ function createCard(id, question, answers, correctAnswer) {
 return card
 };
 
-function evaluateGuess(guess, correctAnswer) {
-  if(guess === correctAnswer) {
+function evaluateGuess(guess, card) {
+  if(guess === card.correctAnswer) {
     return "Correct!"
   } else {return "Incorrect!"}
 }; 
 
 function createDeck(cards) {
-    let deck = cards
-    console.log("deck:", deck)
+    const deck = cards
     return deck;
 };
 
@@ -26,4 +25,14 @@ function countCards(deck) {
     return deck.length; 
 };
 
-module.exports = { createCard, evaluateGuess, createDeck, countCards }; 
+function createRound(deck) {
+    const round = {
+        deck: deck, 
+        currentCard: 1,
+        turns: 0,
+        incorrectGuesses: [], 
+    }
+    return round 
+}
+
+module.exports = { createCard, evaluateGuess, createDeck, countCards, createRound }; 

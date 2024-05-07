@@ -16,4 +16,8 @@ function evaluateGuess(guess, correctAnswer) {
   } else {return "Incorrect!"}
 }; 
 
-module.exports = { createCard, evaluateGuess }; 
+function createDeck() {
+    
+}
+
+module.exports = { createCard, evaluateGuess, createDeck }; 

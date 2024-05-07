@@ -17,7 +17,9 @@ function evaluateGuess(guess, correctAnswer) {
 }; 
 
 function createDeck(cards) {
-    return cards;
+    let deck = cards
+    console.log("deck:", deck)
+    return deck;
 };
 
 function countCards(deck) {

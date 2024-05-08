@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { createCard, evaluateGuess, createDeck, countCards, createRound, takeTurn } = require('../src/card');
+const { createCard, evaluateGuess, createDeck, countCards, createRound, takeTurn, calculatePercentCorrect } = require('../src/card');
 
 describe('card', function() {
   it('should be a function', function() {
@@ -40,7 +40,7 @@ describe('guess', function() {
 
 });
 
-describe('deck', function () {
+describe('deck', function() {
   it('should be a function', function() {
     expect(createDeck).to.be.a('function');
   });
@@ -83,7 +83,7 @@ describe('deck', function () {
   });
 });
 
-describe('round', function () {
+describe('round', function() {
   it('should be a function', function() {
     expect(createRound).to.be.a('function');
   });
@@ -103,7 +103,7 @@ describe('round', function () {
   });
 }); 
 
-describe('take turn', function () {
+describe('take turn', function() {
   it('should be a function', function() {
     expect(takeTurn).to.be.a('function');
   });
@@ -115,8 +115,8 @@ describe('take turn', function () {
     const cards = [card1, card2, card3];
     const deck = createDeck(cards);
     const round = createRound(deck);
-    const guess = 'potato'
-    const nextRound = takeTurn(guess, round)
+    const guess = 'potato';
+    const nextRound = takeTurn(guess, round);
 
     expect(nextRound.turns).to.equal(1)
   });
@@ -128,12 +128,13 @@ describe('take turn', function () {
     const cards = [card1, card2, card3];
     const deck = createDeck(cards);
     const round = createRound(deck);
-    const guess = 'potato'
-    const nextRound = takeTurn(guess, round)
+    const guess = 'potato';
+    const nextRound = takeTurn(guess, round);
 
-    expect(nextRound.currentCard).to.equal(deck[1])
+    expect(nextRound.currentCard).to.equal(deck[1]);
 
   }); 
+
   it('should add guess via the card/s id to incorrectGuesses if the player makes an incorrect guess', function(){
     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
@@ -141,12 +142,13 @@ describe('take turn', function () {
     const cards = [card1, card2, card3];
     const deck = createDeck(cards);
     const round = createRound(deck);
-    const guess = 'potato'
-    const nextRound = takeTurn(guess, round)
+    const guess = 'potato';
+    const nextRound = takeTurn(guess, round);
 
-    expect(nextRound.incorrectGuesses).to.deep.equal([card1.id])
+    expect(nextRound.incorrectGuesses).to.deep.equal([card1.id]);
 
   });
+
   it('should not add guess to incorrectGuesses if the player makes a correct guess', function(){
     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
@@ -154,27 +156,50 @@ describe('take turn', function () {
     const cards = [card1, card2, card3];
     const deck = createDeck(cards);
     const round = createRound(deck);
-    const guess = 'object'
-    const turn = takeTurn(guess, round)
+    const guess = 'object';
+    const nextRound = takeTurn(guess, round);
 
-    expect(round.incorrectGuesses).to.deep.equal([])
+    expect(nextRound.incorrectGuesses).to.deep.equal([]);
   });
 
-  it.skip('should return "Incorrect!" if player enters an incorrect guess');
-  it.skip('should return "Correct!" if player enters a correct guess'); 
+  it('should return feedback based on the player/s guess', function() {
+    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+    const cards = [card1, card2, card3];
+    const deck = createDeck(cards);
+    const round = createRound(deck);
+    const guess = 'potato'
+    const nextRound = takeTurn(guess, round)
+
+    expect(nextRound).to.equal("Incorrect!")
+  });
 });
 
-describe('calculate percent correct', function () {
-  it.skip('should be a function', function() {
+describe('calculate percent correct', function() {
+  it('should be a function', function() {
     expect(calculatePercentCorrect).to.be.a('function');
   });
-  it.skip('should calculate and return the perecentage of correct guesses');
+  it('should calculate and return the perecentage of correct guesses', function(){
+    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+    const cards = [card1, card2, card3];
+    const deck = createDeck(cards);    
+    const round = createRound(deck);
+    const guess = 'potato';
+    const nextRound = takeTurn(guess, round); 
+    const finalScore = calculatePercentCorrect(nextRound);
+    const percentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100; 
+
+    expect(finalScore).to.equal(percentCorrect)
+    
+  });
 });
 
-describe('end the round', function () {
+describe('end the round', function() {
   it.skip('should be a function', function() {
     expect(endRound).to.be.a('function');
   });
-  it.skip('should return "**Round over!** You answered % of questions correctly!') // need to update %
+  it.skip('should return "**Round over!** You answered % of questions correctly!')
 }); 
-

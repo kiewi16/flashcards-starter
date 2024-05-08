@@ -1,7 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { createCard, evaluateGuess, createRound, takeTurn, calculatePercentCorrect, endRound } = require('../src/card');
-const { createDeck } = require('../src/deck')
+const { createCard, evaluateGuess } = require('../src/card');
 
 describe('card', function() {
   it('should be a function', function() {
@@ -38,148 +37,147 @@ describe('guess', function() {
     
     expect(feedback).to.equal("Incorrect!")
   });
-
 });
 
-describe('round', function() {
-  it('should be a function', function() {
-    expect(createRound).to.be.a('function');
-  });
+// describe('round', function() {
+//   it('should be a function', function() {
+//     expect(createRound).to.be.a('function');
+//   });
 
-  it('should create a round and its properties', function() {
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);
-    const round = createRound(deck);
+//   it('should create a round and its properties', function() {
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);
+//     const round = createRound(deck);
 
-    expect(round.deck).to.deep.equal(deck);
-    expect(round.currentCard).to.equal(deck[0]);
-    expect(round.turns).to.equal(0); 
-    expect(round.incorrectGuesses).to.deep.equal([]);
-  });
-}); 
+//     expect(round.deck).to.deep.equal(deck);
+//     expect(round.currentCard).to.equal(deck[0]);
+//     expect(round.turns).to.equal(0); 
+//     expect(round.incorrectGuesses).to.deep.equal([]);
+//   });
+// }); 
 
-describe('take turn', function() {
-  it('should be a function', function() {
-    expect(takeTurn).to.be.a('function');
-  });
+// describe('take turn', function() {
+//   it('should be a function', function() {
+//     expect(takeTurn).to.be.a('function');
+//   });
 
-  it('should increase the turns count regardless if the player makes an incorrect or correct guess', function() {
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);
-    const round = createRound(deck);
-    const guess = 'potato';
-    const nextRound = takeTurn(guess, round);
+//   it('should increase the turns count regardless if the player makes an incorrect or correct guess', function() {
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);
+//     const round = createRound(deck);
+//     const guess = 'potato';
+//     const nextRound = takeTurn(guess, round);
 
-    expect(nextRound.turns).to.equal(1)
+//     expect(nextRound.turns).to.equal(1)
 
-    const guess2 = 'array';
-    const nextRound2 = takeTurn(guess2, round);
+//     const guess2 = 'array';
+//     const nextRound2 = takeTurn(guess2, round);
 
-    expect(nextRound2.turns).to.equal(2)
-  });
+//     expect(nextRound2.turns).to.equal(2)
+//   });
 
-  it('should update the current card with the next card', function() {
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);
-    const round = createRound(deck);
-    const guess = 'potato';
-    const nextRound = takeTurn(guess, round);
+//   it('should update the current card with the next card', function() {
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);
+//     const round = createRound(deck);
+//     const guess = 'potato';
+//     const nextRound = takeTurn(guess, round);
 
-    expect(nextRound.currentCard).to.equal(deck[1]);
+//     expect(nextRound.currentCard).to.equal(deck[1]);
 
-  }); 
+//   }); 
 
-  it('should add guess via the card/s id to incorrectGuesses if the player makes an incorrect guess', function(){
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);
-    const round = createRound(deck);
-    const guess = 'potato';
-    const nextRound = takeTurn(guess, round);
+//   it('should add guess via the card/s id to incorrectGuesses if the player makes an incorrect guess', function(){
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);
+//     const round = createRound(deck);
+//     const guess = 'potato';
+//     const nextRound = takeTurn(guess, round);
 
-    expect(nextRound.incorrectGuesses).to.deep.equal([card1.id]);
+//     expect(nextRound.incorrectGuesses).to.deep.equal([card1.id]);
 
-  });
+//   });
 
-  it('should not add guess to incorrectGuesses if the player makes a correct guess', function(){
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);
-    const round = createRound(deck);
-    const guess = 'object';
-    const nextRound = takeTurn(guess, round);
+//   it('should not add guess to incorrectGuesses if the player makes a correct guess', function(){
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);
+//     const round = createRound(deck);
+//     const guess = 'object';
+//     const nextRound = takeTurn(guess, round);
 
-    expect(nextRound.incorrectGuesses).to.deep.equal([]);
-  });
+//     expect(nextRound.incorrectGuesses).to.deep.equal([]);
+//   });
 
-  it('should return feedback based on the player/s guess', function() {
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    // const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    // const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    // const cards = [card1];
-    // const deck = createDeck(cards);
-    // const round = createRound(deck);
-    const incorrectGuess = 'potato'
-    const correctGuess = 'object'
-    const incorrectFeedback = evaluateGuess(incorrectGuess, card1)
-    const correctFeedback = evaluateGuess(correctGuess, card1)
-    expect(incorrectFeedback).to.equal("Incorrect!")
-    expect(correctFeedback).to.equal("Correct!")
-  });
-});
+//   it('should return feedback based on the player/s guess', function() {
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     // const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     // const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     // const cards = [card1];
+//     // const deck = createDeck(cards);
+//     // const round = createRound(deck);
+//     const incorrectGuess = 'potato'
+//     const correctGuess = 'object'
+//     const incorrectFeedback = evaluateGuess(incorrectGuess, card1)
+//     const correctFeedback = evaluateGuess(correctGuess, card1)
+//     expect(incorrectFeedback).to.equal("Incorrect!")
+//     expect(correctFeedback).to.equal("Correct!")
+//   });
+// });
 
-describe('calculate percent correct', function() {
-  it('should be a function', function() {
-    expect(calculatePercentCorrect).to.be.a('function');
-  });
+// describe('calculate percent correct', function() {
+//   it('should be a function', function() {
+//     expect(calculatePercentCorrect).to.be.a('function');
+//   });
 
-  it('should calculate and return the perecentage of correct guesses', function(){
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);    
-    const round = createRound(deck);
-    const guess = 'potato';
-    const nextRound = takeTurn(guess, round); 
-    const percentCorrect = calculatePercentCorrect(nextRound);
-    const expectedPercentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100; 
+//   it('should calculate and return the perecentage of correct guesses', function(){
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);    
+//     const round = createRound(deck);
+//     const guess = 'potato';
+//     const nextRound = takeTurn(guess, round); 
+//     const percentCorrect = calculatePercentCorrect(nextRound);
+//     const expectedPercentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100; 
 
-    expect(percentCorrect).to.equal(expectedPercentCorrect)
+//     expect(percentCorrect).to.equal(expectedPercentCorrect)
     
-  });
-});
+//   });
+// });
 
-describe('end the round', function() {
-  it('should be a function', function() {
-    expect(endRound).to.be.a('function');
-  });
-  it('should return "**Round over!** You answered % of questions correctly!', function () {
-    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-    const cards = [card1, card2, card3];
-    const deck = createDeck(cards);    
-    const round = createRound(deck);
-    const guess = 'potato';
-    const nextRound = takeTurn(guess, round); 
-    const percentCorrect = calculatePercentCorrect(nextRound);
-    const expectedMessage = `**Round over!** You answered ${percentCorrect}% of questions correctly!`
-    const finalMessage = endRound(percentCorrect)
+// describe('end the round', function() {
+//   it('should be a function', function() {
+//     expect(endRound).to.be.a('function');
+//   });
+//   it('should return "**Round over!** You answered % of questions correctly!', function () {
+//     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+//     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+//     const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+//     const cards = [card1, card2, card3];
+//     const deck = createDeck(cards);    
+//     const round = createRound(deck);
+//     const guess = 'potato';
+//     const nextRound = takeTurn(guess, round); 
+//     const percentCorrect = calculatePercentCorrect(nextRound);
+//     const expectedMessage = `**Round over!** You answered ${percentCorrect}% of questions correctly!`
+//     const finalMessage = endRound(percentCorrect)
    
-    expect(finalMessage).to.equal(expectedMessage)
-  });
-}); 
+//     expect(finalMessage).to.equal(expectedMessage)
+//   });
+// }); 

@@ -36,13 +36,13 @@ function createRound(deck) {
 };
 
 function takeTurn(guess, round) {
-    
-    if (guess !== round.currentCard.correctAnswer) {
+    const feedback = evaluateGuess(guess, round.currentCard)
+    if (feedback !== "Correct!") {
         round.incorrectGuesses.push(round.currentCard.id);
     }
     round.turns += 1;
     round.currentCard = round.deck[round.turns];
-    console.log("updated round:", round)
+    console.log(`You got this question ${feedback}`)
     return round; 
 };
 

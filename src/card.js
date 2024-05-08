@@ -42,6 +42,7 @@ function takeTurn(guess, round) {
     }
     round.turns += 1;
     round.currentCard = round.deck[round.turns];
+    console.log("updated round:", round)
     return round; 
 };
 
@@ -51,7 +52,8 @@ function calculatePercentCorrect(round) {
 };
 
 function endRound(percentCorrect) {
-    return `**Round over!** You answered ${percentCorrect}% of questions correctly!`; 
+    const finalMessage = `**Round over!** You answered ${percentCorrect}% of questions correctly!`; 
+    return finalMessage;
 }; 
 
 module.exports = { 

@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { createCard, evaluateGuess, createDeck, countCards, createRound, takeTurn, calculatePercentCorrect } = require('../src/card');
+const { createCard, evaluateGuess, createDeck, countCards, createRound, takeTurn, calculatePercentCorrect, endRound } = require('../src/card');
 
 describe('card', function() {
   it('should be a function', function() {
@@ -180,6 +180,7 @@ describe('calculate percent correct', function() {
   it('should be a function', function() {
     expect(calculatePercentCorrect).to.be.a('function');
   });
+  
   it('should calculate and return the perecentage of correct guesses', function(){
     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
@@ -189,17 +190,31 @@ describe('calculate percent correct', function() {
     const round = createRound(deck);
     const guess = 'potato';
     const nextRound = takeTurn(guess, round); 
-    const finalScore = calculatePercentCorrect(nextRound);
-    const percentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100; 
+    const percentCorrect = calculatePercentCorrect(nextRound);
+    const expectedPercentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100; 
 
-    expect(finalScore).to.equal(percentCorrect)
+    expect(percentCorrect).to.equal(expectedPercentCorrect)
     
   });
 });
 
 describe('end the round', function() {
-  it.skip('should be a function', function() {
+  it('should be a function', function() {
     expect(endRound).to.be.a('function');
   });
-  it.skip('should return "**Round over!** You answered % of questions correctly!')
+  it('should return "**Round over!** You answered % of questions correctly!', function () {
+    const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+    const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+    const cards = [card1, card2, card3];
+    const deck = createDeck(cards);    
+    const round = createRound(deck);
+    const guess = 'potato';
+    const nextRound = takeTurn(guess, round); 
+    const percentCorrect = calculatePercentCorrect(nextRound);
+    const expectedMessage = `**Round over!** You answered ${percentCorrect}% of questions correctly!`
+    const finalMessage = endRound(percentCorrect)
+   
+    expect(finalMessage).to.equal(expectedMessage)
+  });
 }); 

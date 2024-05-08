@@ -46,8 +46,13 @@ function takeTurn(guess, round) {
 };
 
 function calculatePercentCorrect(round) {
-    return ((round.turns - round.incorrectGuesses.length) / round.turns) * 100
-}
+    const percentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100;
+    return percentCorrect; 
+};
+
+function endRound(percentCorrect) {
+    return `**Round over!** You answered ${percentCorrect}% of questions correctly!`; 
+}; 
 
 module.exports = { 
     createCard, 
@@ -56,5 +61,6 @@ module.exports = {
     countCards, 
     createRound, 
     takeTurn, 
-    calculatePercentCorrect, 
+    calculatePercentCorrect,
+    endRound, 
 }; 

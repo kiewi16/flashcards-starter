@@ -1,5 +1,4 @@
 // const { evaluateGuess } = require("../test/card-test");
-
 function createCard(id, question, answers, correctAnswer) {
     const card = {
         id: id,
@@ -15,15 +14,6 @@ function evaluateGuess(guess, card) {
     return "Correct!"
   } else {return "Incorrect!"}
 }; 
-
-function createDeck(cards) {
-    const deck = cards
-    return deck;
-};
-
-function countCards(deck) {
-    return deck.length; 
-};
 
 function createRound(deck) {
     const round = {
@@ -59,8 +49,6 @@ function endRound(percentCorrect) {
 module.exports = { 
     createCard, 
     evaluateGuess, 
-    createDeck, 
-    countCards, 
     createRound, 
     takeTurn, 
     calculatePercentCorrect,

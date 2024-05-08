@@ -7,7 +7,7 @@ function createCard(id, question, answers, correctAnswer) {
         answers: answers,
         correctAnswer: correctAnswer,
     }
-return card
+return card;
 };
 
 function evaluateGuess(guess, card) {
@@ -32,17 +32,29 @@ function createRound(deck) {
         turns: 0,
         incorrectGuesses: [], 
     }
-    return round 
-}
+    return round; 
+};
 
 function takeTurn(guess, round) {
-    if(guess !== round.currentCard.correctAnswer) {
-        round.incorrectGuesses.push(round.currentCard.id)
-        return "Correct!"
-    } else 
-    round.turns += 1
-    round.currentCard = round.deck[round.turns]
-    return round
+    
+    if (guess !== round.currentCard.correctAnswer) {
+        round.incorrectGuesses.push(round.currentCard.id);
+    }
+    round.turns += 1;
+    round.currentCard = round.deck[round.turns];
+    return round; 
+};
+
+function calculatePercentCorrect(round) {
+    return ((round.turns - round.incorrectGuesses.length) / round.turns) * 100
 }
 
-module.exports = { createCard, evaluateGuess, createDeck, countCards, createRound, takeTurn }; 
+module.exports = { 
+    createCard, 
+    evaluateGuess, 
+    createDeck, 
+    countCards, 
+    createRound, 
+    takeTurn, 
+    calculatePercentCorrect, 
+}; 

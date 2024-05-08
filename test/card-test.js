@@ -180,7 +180,7 @@ describe('calculate percent correct', function() {
   it('should be a function', function() {
     expect(calculatePercentCorrect).to.be.a('function');
   });
-  
+
   it('should calculate and return the perecentage of correct guesses', function(){
     const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
     const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");

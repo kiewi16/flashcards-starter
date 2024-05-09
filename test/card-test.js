@@ -23,12 +23,12 @@ describe('evaluate guess', function() {
   });
 
   it('should return "Correct!" if player enters a correct guess', function() {
-    const correctGuessFeedback = evaluateGuess('correctAnswer', 'correctAnswer')
-    expect(correctGuessFeedback).to.equal('Correct!')
+    const correctGuessFeedback = evaluateGuess('correctAnswer', 'correctAnswer');
+    expect(correctGuessFeedback).to.equal('Correct!');
   })
 });
 
   it('should return "Incorrect!" if player enters an incorrect guess', function() {
     const incorrectGuessFeedback = evaluateGuess('wrongAnswer', 'correctAnswer');
-    expect(incorrectGuessFeedback).to.equal("Incorrect!")
+    expect(incorrectGuessFeedback).to.equal("Incorrect!");
   });

@@ -30,8 +30,7 @@ describe('deck', function() {
       expect(deck[2]).to.have.property('id', 3);
       expect(deck[2]).to.have.property('question',"What type of prototype method di;rectly modifies the existing array?");
       expect(deck[2]).to.have.property('answers').to.deep.equal(["mutator method", "accessor method", "iteration method"]);
-      expect(deck[2]).to.have.property('correctAnswer', "mutator method");
-      
+      expect(deck[2]).to.have.property('correctAnswer', "mutator method");    
     });
   
     it('should count how many cards are in the deck', function() {

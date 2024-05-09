@@ -43,7 +43,7 @@ describe('round', function() {
   
       const correctGuess = 'array';
       takeTurn(correctGuess, round);
-      expect(round.turns).to.equal(2)
+      expect(round.turns).to.equal(2);
     });
 
     it('should update the current card with the next card', function() {
@@ -60,8 +60,7 @@ describe('round', function() {
 
       const correctGuess = 'array';
       takeTurn(correctGuess, round);
-      expect(round.currentCard).to.deep.equal(deck[2])
-  
+      expect(round.currentCard).to.deep.equal(deck[2])  
     }); 
   
     it('should add guess via the card/s id to incorrectGuesses if the player makes an incorrect guess', function(){
@@ -134,7 +133,6 @@ describe('round', function() {
   
       expect(percentCorrect).to.be.a('number')
       expect(percentCorrect).to.equal(66)
-
     });
   });
   

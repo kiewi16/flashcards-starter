@@ -9,13 +9,15 @@ function createCard(id, question, answers, correctAnswer) {
 return card;
 };
 
-function evaluateGuess(guess, card) {
-  if(guess === card.correctAnswer) {
+function evaluateGuess(guess, correctAnswer) {
+  if(guess === correctAnswer) {
     return "Correct!"
-  } else {return "Incorrect!"}
+  } else if(guess !== correctAnswer) {
+    return "Incorrect!"
+  }
 }; 
 
 module.exports = { 
     createCard, 
-    evaluateGuess
+    evaluateGuess,
 }; 

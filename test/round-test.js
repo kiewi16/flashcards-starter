@@ -36,17 +36,16 @@ describe('round', function() {
       const cards = [card1, card2, card3];
       const deck = createDeck(cards);
       const round = createRound(deck);
-      const guess = 'potato';
-      const nextRound = takeTurn(guess, round);
+      
+      const incorrectGuess = 'potato';
+      takeTurn(incorrectGuess, round);
+      expect(round.turns).to.equal(1); 
   
-      expect(nextRound.turns).to.equal(1)
-  
-      const guess2 = 'array';
-      const nextRound2 = takeTurn(guess2, round);
-  
-      expect(nextRound2.turns).to.equal(2)
+      const correctGuess = 'array';
+      takeTurn(correctGuess, round);
+      expect(round.turns).to.equal(2)
     });
-  
+
     it('should update the current card with the next card', function() {
       const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
       const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
@@ -54,10 +53,14 @@ describe('round', function() {
       const cards = [card1, card2, card3];
       const deck = createDeck(cards);
       const round = createRound(deck);
-      const guess = 'potato';
-      const nextRound = takeTurn(guess, round);
-  
-      expect(nextRound.currentCard).to.equal(deck[1]);
+
+      const incorrectGuess = 'potato';
+      takeTurn(incorrectGuess, round);
+      expect(round.currentCard).to.deep.equal(deck[1]);
+
+      const correctGuess = 'array';
+      takeTurn(correctGuess, round);
+      expect(round.currentCard).to.deep.equal(deck[2])
   
     }); 
   
@@ -68,10 +71,10 @@ describe('round', function() {
       const cards = [card1, card2, card3];
       const deck = createDeck(cards);
       const round = createRound(deck);
-      const guess = 'potato';
-      const nextRound = takeTurn(guess, round);
-  
-      expect(nextRound.incorrectGuesses).to.deep.equal([card1.id]);
+      
+      const incorrectGuess = 'potato';
+      takeTurn(incorrectGuess, round);
+      expect(round.incorrectGuesses).to.deep.equal([card1.id]);
   
     });
   
@@ -82,25 +85,27 @@ describe('round', function() {
       const cards = [card1, card2, card3];
       const deck = createDeck(cards);
       const round = createRound(deck);
-      const guess = 'object';
-      const nextRound = takeTurn(guess, round);
-  
-      expect(nextRound.incorrectGuesses).to.deep.equal([]);
+      
+      const correctGuess = 'object';
+      takeTurn(correctGuess, round);
+      expect(round.incorrectGuesses).to.not.deep.equal([round.currentCard.id]);
     });
   
     it('should return feedback based on the player/s guess', function() {
       const card1 = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-      // const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
-      // const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
-      // const cards = [card1];
-      // const deck = createDeck(cards);
-      // const round = createRound(deck);
-      const incorrectGuess = 'potato'
-      const correctGuess = 'object'
-      const incorrectFeedback = evaluateGuess(incorrectGuess, card1)
-      const correctFeedback = evaluateGuess(correctGuess, card1)
-      expect(incorrectFeedback).to.equal("Incorrect!")
-      expect(correctFeedback).to.equal("Correct!")
+      const card2 = createCard(2, "What is a comma-separated list of related values?", ["array", "object", "function"], "array");
+      const card3 = createCard(3, "What type of prototype method di;rectly modifies the existing array?", ["mutator method", "accessor method", "iteration method"], "mutator method");
+      const cards = [card1, card2, card3];
+      const deck = createDeck(cards);
+      const round = createRound(deck);
+      const correctGuess = 'object';
+      const incorrectGuess = 'potato';
+  
+      const correctFeedback = takeTurn(correctGuess, round);
+      expect(correctFeedback).to.equal("Correct!");
+
+      const incorrectFeedback = takeTurn(incorrectGuess, round);
+      expect(incorrectFeedback).to.equal("Incorrect!");
     });
   });
   
@@ -116,13 +121,20 @@ describe('round', function() {
       const cards = [card1, card2, card3];
       const deck = createDeck(cards);    
       const round = createRound(deck);
-      const guess = 'potato';
-      const nextRound = takeTurn(guess, round); 
-      const percentCorrect = calculatePercentCorrect(nextRound);
-      const expectedPercentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100; 
+
+      const correctGuess = 'object';
+      const incorrectGuess = 'potato';
+      const correctGuess2 = "mutator method"; 
   
-      expect(percentCorrect).to.equal(expectedPercentCorrect)
-      
+      takeTurn(correctGuess, round);
+      takeTurn(incorrectGuess, round);
+      takeTurn(correctGuess2, round);
+   
+      const percentCorrect = calculatePercentCorrect(round);
+  
+      expect(percentCorrect).to.be.a('number')
+      expect(percentCorrect).to.equal(66)
+
     });
   });
   
@@ -138,10 +150,9 @@ describe('round', function() {
       const deck = createDeck(cards);    
       const round = createRound(deck);
       const guess = 'potato';
-      const nextRound = takeTurn(guess, round); 
-      const percentCorrect = calculatePercentCorrect(nextRound);
-      const expectedMessage = `**Round over!** You answered ${percentCorrect}% of questions correctly!`
-      const finalMessage = endRound(percentCorrect)
+      takeTurn(guess, round); 
+      const expectedMessage = `**Round Over!** You answered 0% of questions correctly!`
+      const finalMessage = endRound(round)
      
       expect(finalMessage).to.equal(expectedMessage)
     });

@@ -16,9 +16,11 @@ function printQuestion(round) {
 function startGame() {
   const deck = createDeck(prototypeQuestions);
   const round = createRound(deck);
-  printMessage(deck); 
-  printQuestion(round); 
 
+  printMessage(deck); 
+  printQuestion(round);
+  
+  
 }
 
 module.exports = { printMessage, printQuestion, startGame };

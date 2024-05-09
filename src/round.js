@@ -11,24 +11,29 @@ function createRound(deck) {
 };
 
 function takeTurn(guess, round) {
-    const feedback = evaluateGuess(guess, round.currentCard)
-    if (feedback !== "Correct!") {
-        round.incorrectGuesses.push(round.currentCard.id);
+    const correctAnswer = round.currentCard.correctAnswer
+    const feedback = (evaluateGuess(guess, correctAnswer))
+    
+    if (feedback === "Incorrect!") {
+        round.incorrectGuesses.push(round.currentCard.id)
     }
-    round.turns += 1;
-    round.currentCard = round.deck[round.turns];
-    console.log(`You got this question ${feedback}`)
-    return round; 
-};
+    round.turns += 1
+    round.currentCard = round.deck[round.turns]
+    return feedback
+} 
 
 function calculatePercentCorrect(round) {
-    const percentCorrect = ((round.turns - round.incorrectGuesses.length) / round.turns) * 100;
+    const totalRounds = round.turns;
+    const numOfIncorrectGuesses = round.incorrectGuesses.length;
+    const percentCorrect = Math.floor(((totalRounds - numOfIncorrectGuesses) / totalRounds) * 100);
     return percentCorrect; 
 };
 
-function endRound(percentCorrect) {
-    const finalMessage = `**Round over!** You answered ${percentCorrect}% of questions correctly!`; 
-    return finalMessage;
+function endRound(round) {
+  const percentage = calculatePercentCorrect(round)
+  const endMessage = `**Round Over!** You answered ${percentage}% of questions correctly!`
+  console.log(endMessage)
+  return endMessage
 }; 
 
 module.exports = {

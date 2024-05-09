@@ -1,4 +1,3 @@
-// const { evaluateGuess } = require("../test/card-test");
 function createCard(id, question, answers, correctAnswer) {
     const card = {
         id: id,
